@@ -1,0 +1,9 @@
+{
+  "body": "{\"message\": \"This is working\"}",
+  "queryStringParameters": {
+    "file_id": "1",
+    "farmer_file": "Farm_Data.xlsx",
+    "trade_file": "trades.csv",
+    "tickets_file": "tickets.csv"
+  }
+}
