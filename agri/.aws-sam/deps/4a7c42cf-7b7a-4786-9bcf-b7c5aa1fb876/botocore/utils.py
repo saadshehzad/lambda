@@ -19,7 +19,6 @@ import hashlib
 import io
 import logging
 import os
-import random
 import re
 import socket
 import time
@@ -83,6 +82,7 @@ from botocore.exceptions import (
     UnsupportedS3ControlConfigurationError,
 )
 from botocore.vendored.six.moves.urllib.request import getproxies, proxy_bypass
+import secrets
 
 logger = logging.getLogger(__name__)
 DEFAULT_METADATA_SERVICE_TIMEOUT = 1
@@ -658,7 +658,7 @@ class InstanceMetadataFetcher(IMDSFetcher):
             refresh_interval = self._config.get(
                 "ec2_credential_refresh_window", 60 * 10
             )
-            jitter = random.randint(120, 600)  # Between 2 to 10 minutes
+            jitter = secrets.SystemRandom().randint(120, 600)  # Between 2 to 10 minutes
             refresh_interval_with_jitter = refresh_interval + jitter
             current_time = datetime.datetime.utcnow()
             refresh_offset = datetime.timedelta(
@@ -1169,7 +1169,7 @@ class ArgumentGenerator:
                 if self._use_member_names:
                     return name
                 if shape.enum:
-                    return random.choice(shape.enum)
+                    return secrets.choice(shape.enum)
                 return ''
             elif shape.type_name in ['integer', 'long']:
                 return 0

@@ -3,7 +3,6 @@ from datetime import (
     datetime,
     timedelta,
 )
-import random
 import re
 
 import numpy as np
@@ -40,6 +39,7 @@ from pandas.core.reshape.merge import (
     MergeError,
     merge,
 )
+import secrets
 
 N = 50
 NGROUPS = 8
@@ -52,7 +52,7 @@ def get_test_data(ngroups=NGROUPS, n=N):
     if len(arr) < n:
         arr = np.asarray(list(arr) + unique_groups[: n - len(arr)])
 
-    random.shuffle(arr)
+    secrets.SystemRandom().shuffle(arr)
     return arr
 
 

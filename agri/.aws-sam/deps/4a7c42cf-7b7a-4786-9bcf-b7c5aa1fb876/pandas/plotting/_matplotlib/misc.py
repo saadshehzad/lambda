@@ -1,6 +1,4 @@
 from __future__ import annotations
-
-import random
 from typing import (
     TYPE_CHECKING,
     Hashable,
@@ -20,6 +18,7 @@ from pandas.plotting._matplotlib.tools import (
     maybe_adjust_figure,
     set_ticks_props,
 )
+import secrets
 
 if TYPE_CHECKING:
     from matplotlib.axes import Axes
@@ -302,7 +301,7 @@ def bootstrap_plot(
     # TODO: is the failure mentioned below still relevant?
     # random.sample(ndarray, int) fails on python 3.3, sigh
     data = list(series.values)
-    samplings = [random.sample(data, size) for _ in range(samples)]
+    samplings = [secrets.SystemRandom().sample(data, size) for _ in range(samples)]
 
     means = np.array([np.mean(sampling) for sampling in samplings])
     medians = np.array([np.median(sampling) for sampling in samplings])
