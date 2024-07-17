@@ -16,6 +16,7 @@ import pandas.util._test_decorators as td
 import pandas._testing as tm
 
 from pandas.io.parsers import read_csv
+from security import safe_command
 
 
 @pytest.fixture
@@ -93,8 +94,7 @@ def s3_base(worker_id):
             endpoint_uri = f"http://127.0.0.1:{endpoint_port}/"
 
             # pipe to null to avoid logging in terminal
-            with subprocess.Popen(
-                shlex.split(f"moto_server s3 -p {endpoint_port}"),
+            with safe_command.run(subprocess.Popen, shlex.split(f"moto_server s3 -p {endpoint_port}"),
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             ) as proc:
