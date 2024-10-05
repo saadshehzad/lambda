@@ -14,7 +14,6 @@ import functools
 import logging
 import math
 import os
-import random
 import socket
 import stat
 import string
@@ -24,6 +23,7 @@ from collections import defaultdict
 from botocore.exceptions import IncompleteReadError, ReadTimeoutError
 
 from s3transfer.compat import SOCKET_ERROR, fallocate, rename_file
+import secrets
 
 MAX_PARTS = 10000
 # The maximum file size you can upload via S3 per request.
@@ -43,7 +43,7 @@ S3_RETRYABLE_DOWNLOAD_ERRORS = (
 
 
 def random_file_extension(num_digits=8):
-    return ''.join(random.choice(string.hexdigits) for _ in range(num_digits))
+    return ''.join(secrets.choice(string.hexdigits) for _ in range(num_digits))
 
 
 def signal_not_transferring(request, operation_name, **kwargs):

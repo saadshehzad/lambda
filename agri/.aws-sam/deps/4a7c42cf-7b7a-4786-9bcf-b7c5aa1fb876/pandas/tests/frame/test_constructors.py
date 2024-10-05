@@ -55,6 +55,7 @@ from pandas.arrays import (
     SparseArray,
 )
 from pandas.core.api import Int64Index
+import secrets
 
 MIXED_FLOAT_DTYPES = ["float16", "float32", "float64"]
 MIXED_INT_DTYPES = [
@@ -437,11 +438,10 @@ class TestDataFrameConstructors:
         assert result[0][0] == value
 
     def test_constructor_ordereddict(self):
-        import random
 
         nitems = 100
         nums = list(range(nitems))
-        random.shuffle(nums)
+        secrets.SystemRandom().shuffle(nums)
         expected = [f"A{i:d}" for i in nums]
         df = DataFrame(OrderedDict(zip(expected, [[0]] * nitems)))
         assert expected == list(df.columns)

@@ -48,6 +48,7 @@ from pandas.core.computation.ops import (
     _binary_ops_dict,
     _unary_math_ops,
 )
+import secrets
 
 
 @pytest.fixture(
@@ -963,7 +964,6 @@ class TestAlignment:
     @pytest.mark.parametrize("r2", index_types)
     @pytest.mark.parametrize("c2", index_types)
     def test_complex_series_frame_alignment(self, engine, parser, r1, c1, r2, c2):
-        import random
 
         n = 3
         m1 = 5
@@ -972,8 +972,8 @@ class TestAlignment:
         with warnings.catch_warnings(record=True):
             warnings.simplefilter("always", RuntimeWarning)
 
-            index_name = random.choice(["index", "columns"])
-            obj_name = random.choice(["df", "df2"])
+            index_name = secrets.choice(["index", "columns"])
+            obj_name = secrets.choice(["df", "df2"])
 
             df = tm.makeCustomDataframe(
                 m1, n, data_gen_f=f, r_idx_type=r1, c_idx_type=c1

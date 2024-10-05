@@ -1,12 +1,12 @@
 # Test GroupBy._positional_selector positional grouped indexing GH#42864
 
-import random
 
 import numpy as np
 import pytest
 
 import pandas as pd
 import pandas._testing as tm
+import secrets
 
 
 @pytest.mark.parametrize(
@@ -129,9 +129,9 @@ def multiindex_data():
 
     data = {}
     for date in dates:
-        nitems_for_date = nitems - random.randint(0, 12)
+        nitems_for_date = nitems - secrets.SystemRandom().randint(0, 12)
         levels = [
-            (item, random.randint(0, 10000) / 100, random.randint(0, 10000) / 100)
+            (item, secrets.SystemRandom().randint(0, 10000) / 100, secrets.SystemRandom().randint(0, 10000) / 100)
             for item in items[:nitems_for_date]
         ]
         levels.sort(key=lambda x: x[1])
