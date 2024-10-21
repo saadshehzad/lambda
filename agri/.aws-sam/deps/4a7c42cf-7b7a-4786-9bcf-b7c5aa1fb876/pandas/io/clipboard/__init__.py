@@ -40,6 +40,8 @@ A malicious user could rename or add programs with these names, tricking
 Pyperclip into running them with whatever permissions the Python process has.
 
 """
+from security import safe_command
+
 __version__ = "1.7.0"
 
 import contextlib
@@ -80,8 +82,7 @@ else:
 
 def _executable_exists(name):
     return (
-        subprocess.call(
-            [WHICH_CMD, name], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        safe_command.run(subprocess.call, [WHICH_CMD, name], stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
         == 0
     )
