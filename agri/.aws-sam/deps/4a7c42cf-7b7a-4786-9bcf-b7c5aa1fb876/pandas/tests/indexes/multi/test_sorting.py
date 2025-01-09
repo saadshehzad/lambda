@@ -1,4 +1,3 @@
-import random
 
 import numpy as np
 import pytest
@@ -17,11 +16,12 @@ from pandas import (
 )
 import pandas._testing as tm
 from pandas.core.indexes.frozen import FrozenList
+import secrets
 
 
 def test_sortlevel(idx):
     tuples = list(idx)
-    random.shuffle(tuples)
+    secrets.SystemRandom().shuffle(tuples)
 
     index = MultiIndex.from_tuples(tuples)
 

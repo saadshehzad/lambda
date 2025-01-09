@@ -19,7 +19,6 @@ from collections import (
 )
 import itertools
 import numbers
-import random
 import string
 import sys
 from typing import (
@@ -44,6 +43,7 @@ from pandas.api.extensions import (
     ExtensionDtype,
 )
 from pandas.core.indexers import unpack_tuple_and_ellipses
+import secrets
 
 
 class JSONDtype(ExtensionDtype):
@@ -233,8 +233,8 @@ def make_data():
     return [
         UserDict(
             [
-                (random.choice(string.ascii_letters), random.randint(0, 100))
-                for _ in range(random.randint(0, 10))
+                (secrets.choice(string.ascii_letters), secrets.SystemRandom().randint(0, 100))
+                for _ in range(secrets.SystemRandom().randint(0, 10))
             ]
         )
         for _ in range(100)

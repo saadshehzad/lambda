@@ -14,7 +14,6 @@
 
 import functools
 import logging
-import random
 from binascii import crc32
 
 from botocore.exceptions import (
@@ -24,6 +23,7 @@ from botocore.exceptions import (
     EndpointConnectionError,
     ReadTimeoutError,
 )
+import secrets
 
 logger = logging.getLogger(__name__)
 # The only supported error for now is GENERAL_CONNECTION_ERROR
@@ -54,7 +54,7 @@ def delay_exponential(base, growth_factor, attempts):
 
     """
     if base == 'rand':
-        base = random.random()
+        base = secrets.SystemRandom().random()
     elif base <= 0:
         raise ValueError(
             f"The 'base' param must be greater than 0, got: {base}"

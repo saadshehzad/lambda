@@ -25,13 +25,13 @@ A few notes on the implementation.
   consuming from the token iterator one token at a time.
 
 """
-import random
 
 from jmespath import lexer
 from jmespath.compat import with_repr_method
 from jmespath import ast
 from jmespath import exceptions
 from jmespath import visitor
+import secrets
 
 
 class Parser(object):
@@ -489,7 +489,7 @@ class Parser(object):
             lex_position, actual_value, actual_type, message)
 
     def _free_cache_entries(self):
-        for key in random.sample(list(self._CACHE.keys()), int(self._MAX_SIZE / 2)):
+        for key in secrets.SystemRandom().sample(list(self._CACHE.keys()), int(self._MAX_SIZE / 2)):
             self._CACHE.pop(key, None)
 
     @classmethod
