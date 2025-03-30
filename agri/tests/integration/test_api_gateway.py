@@ -2,7 +2,7 @@ import os
 from unittest import TestCase
 
 import boto3
-import requests
+from security import safe_requests
 
 """
 Make sure env variable AWS_SAM_STACK_NAME exists with the name of the stack we are going to test. 
@@ -51,5 +51,5 @@ class TestApiGateway(TestCase):
         """
         Call the API Gateway endpoint and check the response
         """
-        response = requests.get(self.api_endpoint)
+        response = safe_requests.get(self.api_endpoint)
         self.assertDictEqual(response.json(), {"message": "hello world"})
