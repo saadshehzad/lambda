@@ -1,4 +1,3 @@
-import random
 
 import numpy as np
 import pytest
@@ -10,6 +9,7 @@ from pandas import (
     Series,
 )
 import pandas._testing as tm
+import secrets
 
 
 @pytest.fixture(params=["quicksort", "mergesort", "heapsort", "stable"])
@@ -26,7 +26,7 @@ class TestSeriesSortIndex:
         datetime_series.index = datetime_series.index._with_freq(None)
 
         rindex = list(datetime_series.index)
-        random.shuffle(rindex)
+        secrets.SystemRandom().shuffle(rindex)
 
         random_order = datetime_series.reindex(rindex)
         sorted_series = random_order.sort_index()
@@ -61,7 +61,7 @@ class TestSeriesSortIndex:
 
         # For GH#11402
         rindex = list(datetime_series.index)
-        random.shuffle(rindex)
+        secrets.SystemRandom().shuffle(rindex)
 
         # descending
         random_order = datetime_series.reindex(rindex)

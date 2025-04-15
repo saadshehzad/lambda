@@ -129,7 +129,6 @@ import logging
 import math
 import os
 import queue
-import random
 import socket
 import string
 import threading
@@ -142,6 +141,7 @@ from botocore.vendored.requests.packages.urllib3.exceptions import (
 
 import s3transfer.compat
 from s3transfer.exceptions import RetriesExceededError, S3UploadFailedError
+import secrets
 
 __author__ = 'Amazon Web Services'
 __version__ = '0.6.0'
@@ -160,7 +160,7 @@ SHUTDOWN_SENTINEL = object()
 
 
 def random_file_extension(num_digits=8):
-    return ''.join(random.choice(string.hexdigits) for _ in range(num_digits))
+    return ''.join(secrets.choice(string.hexdigits) for _ in range(num_digits))
 
 
 def disable_upload_callbacks(request, operation_name, **kwargs):
