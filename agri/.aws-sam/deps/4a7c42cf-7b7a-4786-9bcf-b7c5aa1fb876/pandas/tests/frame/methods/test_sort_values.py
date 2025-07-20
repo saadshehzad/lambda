@@ -1,4 +1,3 @@
-import random
 
 import numpy as np
 import pytest
@@ -12,6 +11,7 @@ from pandas import (
     date_range,
 )
 import pandas._testing as tm
+import secrets
 
 
 class TestDataFrameSortValues:
@@ -128,8 +128,8 @@ class TestDataFrameSortValues:
     def test_sort_values_multicolumn(self):
         A = np.arange(5).repeat(20)
         B = np.tile(np.arange(5), 20)
-        random.shuffle(A)
-        random.shuffle(B)
+        secrets.SystemRandom().shuffle(A)
+        secrets.SystemRandom().shuffle(B)
         frame = DataFrame({"A": A, "B": B, "C": np.random.randn(100)})
 
         result = frame.sort_values(by=["A", "B"])

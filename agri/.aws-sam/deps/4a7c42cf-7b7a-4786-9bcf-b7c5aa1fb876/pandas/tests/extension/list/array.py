@@ -6,7 +6,6 @@ The ListArray stores an ndarray of lists.
 from __future__ import annotations
 
 import numbers
-import random
 import string
 
 import numpy as np
@@ -21,6 +20,7 @@ from pandas.api.types import (
     is_string_dtype,
 )
 from pandas.core.arrays import ExtensionArray
+import secrets
 
 
 class ListDtype(ExtensionDtype):
@@ -126,7 +126,7 @@ def make_data():
     # TODO: Use a regular dict. See _NDFrameIndexer._setitem_with_indexer
     data = np.empty(100, dtype=object)
     data[:] = [
-        [random.choice(string.ascii_letters) for _ in range(random.randint(0, 10))]
+        [secrets.choice(string.ascii_letters) for _ in range(secrets.SystemRandom().randint(0, 10))]
         for _ in range(100)
     ]
     return data
